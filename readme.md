@@ -53,3 +53,11 @@ The extension list need add hash version
 
 ##### md5BuildAsset: 'static'
 The path to assets in your project used by create md5 file
+
+##### urlParamName: 'v'
+
+自定义 URL 参数
+
+##### isAdditionExt: false
+
+是否在 URL 末尾附加原文件的扩展名
