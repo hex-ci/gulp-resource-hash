@@ -1,36 +1,36 @@
 {
-	"name": "gulp-resource-hash",
-	"version": "0.0.4",
-	"description": "A gulp plugin for cache files by adding a hash version append their name(like a.js?v=hash) or create a hash named file",
-	"license": "MIT",
-	"keywords": [
-		"cache",
-		"md5",
-		"version",
-		"gulpplugin"
-	],
-	"author": {
-		"name": "Hex",
-		"email": "hex@codeigniter.org.cn"
-	},
-	"homepage": "https://github.com/hex-ci/gulp-resource-hash",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/hex-ci/gulp-resource-hash.git"
-	},
-	"scripts": {
-		"test": "mocha tests"
-	},
-	"files": [
-		"index.js"
-	],
-	"dependencies": {
-		"gulp-util": "^3.0.0",
-		"through2": "^0.5.1"
-	},
-	"devDependencies": {
-		"concat-stream": "^1.4.6",
-		"gulp": "^3.8.7",
-		"mocha": "*"
-	}
+  "name": "gulp-resource-hash",
+  "version": "0.1.0",
+  "description": "A gulp plugin for cache files by adding a hash version append their name(like a.js?v=hash) or create a hash named file",
+  "license": "MIT",
+  "keywords": [
+    "cache",
+    "md5",
+    "version",
+    "gulpplugin"
+  ],
+  "author": {
+    "name": "Hex",
+    "email": "hex@codeigniter.org.cn"
+  },
+  "homepage": "https://github.com/hex-ci/gulp-resource-hash",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hex-ci/gulp-resource-hash.git"
+  },
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "gulp-util": "^3.0.0",
+    "through2": "^0.5.1"
+  },
+  "devDependencies": {
+    "concat-stream": "^1.4.6",
+    "gulp": "^3.8.7",
+    "mocha": "*"
+  }
 }
