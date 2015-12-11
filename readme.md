@@ -1,5 +1,5 @@
 gulp-resource-hash
-=============
+==================
 
 > A gulp plugin for cache files by adding a hash version append their name(like a.js?v=hash).
 

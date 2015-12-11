@@ -51,7 +51,7 @@ module.exports = function (options) {
 		}
 
 		if (file.isStream()) {
-			this.emit('error', new gutil.PluginError('gulp-static-hash', 'Streams are not supported!'));
+			this.emit('error', new gutil.PluginError('gulp-resource-hash', 'Streams are not supported!'));
 			return callback();
 		}
 
@@ -80,7 +80,7 @@ module.exports = function (options) {
 				}
 
 				if (fs.existsSync(fullPath)) {
-					gutil.log('replacing image ' + filePath + ' version in css file: ' + file.path);
+					//gutil.log('replacing image ' + filePath + ' version in css file: ' + file.path);
 
 					if (md5BuildAsset) {
 
