@@ -18,7 +18,7 @@ npm install --save-dev gulp-resource-hash
 var gulp = require('gulp');
 var staticHash = require('gulp-resource-hash');
 
-gulp.task('static-hash-html', function () {
+gulp.task('resource-hash-html', function () {
 	gulp.src('static/**/*.html')
 		.pipe(staticHash({asset: 'static'}))
 		.pipe(gulp.dest('dest'));
