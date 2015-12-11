@@ -62,39 +62,44 @@ module.exports = function (options) {
 
 		if (extname == '.css') {
 			contents = contents.replace(regCss, function (content, filePath) {
-				filePath = filePath.replace(/\?[\s\S]*$/, "").trim();
-	            filePath = filePath.replace(/['"]*/g, "");
+				var newFilePath = filePath.replace(/\?[\s\S]*$/, "").trim();
+				newFilePath = newFilePath.replace(/['"]*/g, "");
+				newFilePath = newFilePath.replace(/#[\s\S]*$/, '');
 
-	            if (filePath.indexOf("base64,") > -1 || filePath.indexOf("about:blank") > -1 || filePath.indexOf("http://") > -1 || filePath === '/') {
+	            if (newFilePath.indexOf("base64,") > -1 || newFilePath.indexOf("about:blank") > -1 || newFilePath.indexOf("http://") > -1 || newFilePath === '/') {
 	                return content;
 	            }
 
 				//use md5
-	            var safeUrl = filePath.replace(/#[\s\S]*$/, '');
 				var fullPath;
-				if (/^\//.test(filePath)) {
-					fullPath = path.resolve(asset, safeUrl.slice(1));
+				if (/^\//.test(newFilePath)) {
+					fullPath = path.resolve(asset, newFilePath.slice(1));
 				}
 				else {
-	                fullPath = path.resolve(mainPath, safeUrl);
+	                fullPath = path.resolve(mainPath, newFilePath);
 				}
 
 				if (fs.existsSync(fullPath)) {
-					//gutil.log('replacing image ' + filePath + ' version in css file: ' + file.path);
+					//gutil.log('replacing image ' + newFilePath + ' version in css file: ' + file.path);
 
 					if (md5BuildAsset) {
-
 						fullPath = path.join(md5BuildAsset, path.relative(asset, fullPath));
 
-						return content.replace(path.basename(filePath), buildMD5File(fullPath));
+						return content.replace(path.basename(newFilePath), buildMD5File(fullPath));
 					}
 					else {
 						var hashURL = url.parse(filePath, true);
+						var hash = '';
 						hashURL.search = '';
 						hashURL.query[urlParamName] = sha1(fullPath);
 
-						return content.replace(filePath, url.format(hashURL) + (options.isAdditionExt ? path.extname(filePath) : ''));
-					}
+						if (hashURL.hash) {
+							hash = hashURL.hash;
+							hashURL.hash = '';
+						}
+
+						return content.replace(filePath, url.format(hashURL) + (options.isAdditionExt ? path.extname(newFilePath) : '') + hash);
+				}
 				}
 				else {
 					return content;
