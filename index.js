@@ -73,10 +73,10 @@ module.exports = function (options) {
 	            var safeUrl = filePath.replace(/#[\s\S]*$/, '');
 				var fullPath;
 				if (/^\//.test(filePath)) {
-					fullPath = path.resolve(asset, filePath.slice(1));
+					fullPath = path.resolve(asset, safeUrl.slice(1));
 				}
 				else {
-	                fullPath = path.resolve(path.dirname(file.path), safeUrl);
+	                fullPath = path.resolve(mainPath, safeUrl);
 				}
 
 				if (fs.existsSync(fullPath)) {
