@@ -62,6 +62,8 @@ module.exports = function (options) {
 
 		if (extname == '.css') {
 			contents = contents.replace(regCss, function (content, filePath) {
+				var result;
+
 				var newFilePath = filePath.replace(/\?[\s\S]*$/, "").trim();
 				newFilePath = newFilePath.replace(/['"]*/g, "");
 				newFilePath = newFilePath.replace(/#[\s\S]*$/, '');
@@ -73,10 +75,10 @@ module.exports = function (options) {
 				//use md5
 				var fullPath;
 				if (/^\//.test(newFilePath)) {
-					fullPath = path.resolve(asset, newFilePath.slice(1));
+					fullPath = path.resolve('../', asset, newFilePath.slice(1));
 				}
 				else {
-	                fullPath = path.resolve(mainPath, newFilePath);
+	                fullPath = path.resolve('../', mainPath, newFilePath);
 				}
 
 				if (fs.existsSync(fullPath)) {
@@ -98,8 +100,15 @@ module.exports = function (options) {
 							hashURL.hash = '';
 						}
 
+						if (options.transformPath) {
+                            result = options.transformPath(hashURL.pathname, hashURL, fullPath, filePath);
+							if (typeof result === 'string') {
+								hashURL.pathname = result;
+							}
+                        }
+
 						return content.replace(filePath, url.format(hashURL) + (options.isAdditionExt ? path.extname(newFilePath) : '') + hash);
-				}
+					}
 				}
 				else {
 					return content;
@@ -109,6 +118,7 @@ module.exports = function (options) {
 		else {
 			contents = contents.replace(reg, function (content, filePath, ext, other) {
 				var fullPath;
+				var result;
 
 				if (/^\//.test(filePath)) {
 					fullPath = path.resolve(asset, filePath.slice(1));
@@ -124,8 +134,16 @@ module.exports = function (options) {
 						return content.replace(path.basename(filePath), buildMD5File(fullPath));
 					} else {
 						var hashURL = url.parse(filePath + other, true);
+
 						hashURL.search = '';
 						hashURL.query[urlParamName] = sha1(fullPath);
+
+						if (options.transformPath) {
+                            result = options.transformPath(hashURL.pathname, hashURL, fullPath, filePath);
+							if (typeof result === 'string') {
+								hashURL.pathname = result;
+							}
+                        }
 
 						return content.replace(other, '').replace(filePath, url.format(hashURL) + (options.isAdditionExt ? '.' + ext : ''));
 					}
