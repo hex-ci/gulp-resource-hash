@@ -101,7 +101,7 @@ module.exports = function (options) {
 						}
 
 						if (options.transformPath) {
-                            result = options.transformPath(hashURL.pathname, hashURL, fullPath, filePath);
+                            result = options.transformPath(hashURL.pathname, hashURL, fullPath, filePath, file.path);
 							if (typeof result === 'string') {
 								hashURL.pathname = result;
 							}
@@ -142,7 +142,7 @@ module.exports = function (options) {
 						hashURL.query[urlParamName] = sha1(fullPath);
 
 						if (options.transformPath) {
-                            result = options.transformPath(hashURL.pathname, hashURL, fullPath, filePath);
+                            result = options.transformPath(hashURL.pathname, hashURL, fullPath, filePath, file.path);
 							if (typeof result === 'string') {
 								hashURL.pathname = result;
 							}
