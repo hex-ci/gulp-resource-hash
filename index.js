@@ -105,6 +105,9 @@ module.exports = function (options) {
 							if (typeof result === 'string') {
 								hashURL.pathname = result;
 							}
+							else if (typeof result === 'object') {
+								hashURL = result;
+							}
                         }
 
 						return content.replace(filePath, url.format(hashURL) + (options.isAdditionExt ? path.extname(newFilePath) : '') + hash);
@@ -142,6 +145,9 @@ module.exports = function (options) {
                             result = options.transformPath(hashURL.pathname, hashURL, fullPath, filePath);
 							if (typeof result === 'string') {
 								hashURL.pathname = result;
+							}
+							else if (typeof result === 'object') {
+								hashURL = result;
 							}
                         }
 
